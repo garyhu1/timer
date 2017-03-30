@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.time {
+				margin: 200px auto;
+				background: red;
+				width: 600px;
+				height: 200px;
+				line-height: 200px;
+				text-align: center;
+			}
+			.time span {
+				display: inline-block;
+				font-size: 50px;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>	
+		<div class="time">
+			<span class="day"></span>
+			<span class="hour"></span>
+			<span class="min"></span>
+			<span class="ss"></span>
+			<span class="ms"></span>
+		</div>
+	</body>
+	<script src="../js/jquery.min.js"></script>
+	<script>
+		function getDiffrence(endTime) {
+			endTime = "2017/3/30 17:00:00"
+			var startTime = new Date().getTime();
+			var t = (new Date(endTime).getTime()) - startTime;
+			var hour = parseInt(t/1000/60/60%24);
+			var min = parseInt(t/1000/60%60);
+			var ss = parseInt(t/1000%60);
+			var ms = parseInt(t%1000);
+			setInterval("getDiffrence()",1000);
+			if (ms < 100 && ms >= 10) {
+				ms = "0" + ms
+			}
+			else if (ms < 10) {
+				ms = "00" + ms
+			}
+			$(".hour").html(hour + ":");
+			$(".min").html((min >= 10 ? min : "0" + min) + ":");
+			$(".ss").html((ss >= 10 ? ss : "0" + ss) + ":");
+			$(".ms").html(ms);
+		}
+		getDiffrence();
+	</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片的移动</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#move-block{
+				width: 100px;
+				height: 300px;
+			}
+			#move-block img{
+				width: 100px;
+				height: 150px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<button id="start" style="height: 30px;">开始运动</button>
+			<button id="stop" style="height: 30px;">停止运动</button>
+		</div>
+		<div id="move-block">
+			<img src="../img/img3.jpg" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		var startBtn = document.getElementById("start");
+		var stopBtn = document.getElementById("stop");
+		var moveBlock = document.getElementById("move-block");
+		
+		//封装运动函数
+		function startMove(obj,target){
+			obj.timer = setInterval(function() {
+				var step = (target-obj.offsetLeft)/200;
+				step = step>0?Math.ceil(step):Math.floor(step);
+				obj.style.left = obj.offsetLeft+step+'px';
+			},100);
+		}
+		
+		function clear(obj){
+			clearInterval(obj.timer);
+		}
+		
+		startBtn.onclick = function() {
+			startMove(moveBlock,1000);
+		}
+		
+		stopBtn.onclick = function() {
+			// console.log(moveBlock.style.position);//"";该方法只能获取行内样式
+			// console.log(window.getComputedStyle(moveBlock,null).position);//'absolute';该方法可以获取外联样式值
+//			 console.log(stopBtn.style['height']);//"";该方法获取不到外联的CSS,只能获取内联的样式值
+			// console.log(window.getComputedStyle(moveBlock,null)['position']);//'absolute';该方法可以获取外联样式值
+			console.log(window.getComputedStyle(moveBlock,null)['position']);
+			clear(moveBlock);
+		}
+	</script>
+</html>
